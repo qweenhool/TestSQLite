@@ -3,6 +3,8 @@ package com.example.testsqlite;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,6 +15,8 @@ import com.bigkoo.pickerview.OptionsPickerView;
 import com.example.testsqlite.entity.DaoSession;
 import com.example.testsqlite.entity.HouseBean;
 import com.example.testsqlite.entity.HouseBeanDao;
+import com.example.testsqlite.entity.RoomBean;
+import com.example.testsqlite.entity.RoomBeanDao;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -44,6 +48,9 @@ public class AddHouseActivity extends AppCompatActivity {
     private HouseBeanDao house;
     private HouseBean houseBean;
 
+    private RoomBeanDao room;
+    private RoomBean roomBean;
+
     private String[] houseTypeArr;
     private List<String> housePhotoList;
     private OptionsPickerView opvHouseType;
@@ -57,8 +64,10 @@ public class AddHouseActivity extends AppCompatActivity {
 
         DaoSession daoSession = ((AppApplication) getApplication()).getDaoSession();
         house = daoSession.getHouseBeanDao();
+        room = daoSession.getRoomBeanDao();
 
         houseBean = new HouseBean();
+        roomBean = new RoomBean();
 
         initOptionPicker();
     }
@@ -105,6 +114,35 @@ public class AddHouseActivity extends AppCompatActivity {
                 houseBean.setOrderNumber(new Date());
                 houseBean.setUseFeeTemplate(1);
                 house.insert(houseBean);
+
+                if(!TextUtils.isEmpty(etRoom1.getText().toString().trim())){
+                    roomBean.setHouseId(uuid);
+                    roomBean.setId(UUID.randomUUID().toString());
+                    roomBean.setRoomName(etRoom1.getText().toString().trim());
+                    roomBean.setDataUpload(0);
+                    roomBean.setOrderNumber(1);
+                    roomBean.setCreateTime(null);
+                    room.insert(roomBean);
+                }
+                if(!TextUtils.isEmpty(etRoom2.getText().toString().trim())){
+                    roomBean.setHouseId(uuid);
+                    roomBean.setId(UUID.randomUUID().toString());
+                    roomBean.setRoomName(etRoom2.getText().toString().trim());
+                    roomBean.setDataUpload(0);
+                    roomBean.setOrderNumber(2);
+                    roomBean.setCreateTime(null);
+                    Log.e(this.getClass().getSimpleName(), ""+roomBean);
+                    room.insert(roomBean);
+                }
+                if(!TextUtils.isEmpty(etRoom3.getText().toString().trim())){
+                    roomBean.setHouseId(uuid);
+                    roomBean.setId(UUID.randomUUID().toString());
+                    roomBean.setRoomName(etRoom3.getText().toString().trim());
+                    roomBean.setDataUpload(0);
+                    roomBean.setOrderNumber(3);
+                    roomBean.setCreateTime(null);
+                    room.insert(roomBean);
+                }
 
                 finish();//返回主界面
                 break;

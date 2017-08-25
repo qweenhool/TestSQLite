@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
         DaoSession daoSession = ((AppApplication) getApplication()).getDaoSession();
         house = daoSession.getHouseBeanDao();
-        rvHouse.setLayoutManager(new LinearLayoutManager(this));
+
 
     }
 
@@ -53,9 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
         adapter = new MyAdapter(this,houseBeanList);
+        rvHouse.setLayoutManager(new LinearLayoutManager(this));
         rvHouse.setAdapter(adapter);
     }
 
